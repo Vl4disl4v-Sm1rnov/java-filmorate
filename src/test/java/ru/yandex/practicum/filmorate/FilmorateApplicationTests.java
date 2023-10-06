@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class FilmorateApplicationTests {
 	private FilmController filmController;
 	private UserController userController;
-
 	private User userMapping;
 	private User userMapping1;
 	private Film filmMapping;
 	private Film filmMapping1;
+
 	@BeforeEach
 	public void beforeEach() {
 		userController = new UserController();
@@ -56,7 +56,6 @@ class FilmorateApplicationTests {
 		filmMapping1.setDuration(321);
 	}
 
-
 	@Test
 	public void testFilmValidation() {
 		Film film = new Film();
@@ -74,8 +73,9 @@ class FilmorateApplicationTests {
 		assertEquals("Дата релиза — не раньше 28 декабря 1895 года.", exceptionReleaseDate.getMessage());
 		assertEquals("Продолжительность фильма должна быть положительной.", exceptionDuration.getMessage());
 	}
+
 	@Test
-	public void testUserValidation(){
+	public void testUserValidation() {
 		User user = new User();
 		User user1 = new User();
 		user1.setLogin("123");
@@ -88,8 +88,9 @@ class FilmorateApplicationTests {
 		assertEquals("Дата рождения не может быть в будущем.", exceptionBirthday.getMessage());
 		assertEquals(user1.getLogin(), user1.getName());
 	}
+
 	@Test
-	public void testUserMapping(){
+	public void testUserMapping() {
 		//Проверка POST и GET запросов(GET проверяется в assertEquals)
 		userController.create(userMapping);
 		assertEquals(1,userController.findAll().size());
@@ -104,8 +105,9 @@ class FilmorateApplicationTests {
 		Exception exceptionPut = assertThrows(NotFoundException.class, () -> userController.update(userMapping));
 		assertEquals("Нет пользователя с id: " + userMapping.getId(), exceptionPut.getMessage());
 	}
+
 	@Test
-	public void testFilmMapping(){
+	public void testFilmMapping() {
 		//Проверка POST и GET запросов(GET проверяется в assertEquals)
 		filmController.create(filmMapping);
 		assertEquals(1,filmController.findAll().size());
@@ -120,5 +122,4 @@ class FilmorateApplicationTests {
 		Exception exceptionPut = assertThrows(NotFoundException.class, () -> filmController.update(filmMapping));
 		assertEquals("Не существует фильма с id: " + filmMapping.getId(), exceptionPut.getMessage());
 	}
-
 }
