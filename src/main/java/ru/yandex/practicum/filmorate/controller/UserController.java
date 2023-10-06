@@ -43,9 +43,6 @@ public class UserController {
         validationName(user);
         validationBirthday(user);
         setUserId(user);
-        if(users.containsKey(user.getId())){
-            user.setId(++userId);
-        }
         users.put(user.getId(),user);
         return user;
     }
@@ -64,7 +61,7 @@ public class UserController {
         }
     }
     public void validationLogin(User user) {
-        if (user.getLogin().isBlank() || user.getLogin() == null || user == null || user.getName().isEmpty()) {
+        if (user.getLogin().isBlank() || user.getLogin() == null ) {
             throw new ValidationException("Логин не может быть пустым и содержать пробелы.");
         }
     }

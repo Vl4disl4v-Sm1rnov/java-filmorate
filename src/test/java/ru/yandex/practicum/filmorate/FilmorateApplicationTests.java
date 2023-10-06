@@ -33,12 +33,13 @@ class FilmorateApplicationTests {
 		filmMapping = new Film();
 		filmMapping1 = new Film();
 		//Изменяю данные первого юзера для тестов эндпоинтов
+		userMapping.setId(13);
 		userMapping.setEmail("123@ya.ru");
 		userMapping.setLogin("Vladislav");
 		userMapping.setName("vlad");
 		userMapping.setBirthday(LocalDate.of(2000,1,1));
 		//Изменяю данные второго юзера для тестов эндпоинтов
-		userMapping1.setId(1);
+		userMapping1.setId(15);
 		userMapping1.setEmail("123@ya.ru");
 		userMapping1.setLogin("Vladislav");
 		userMapping1.setName("vlad");
@@ -48,7 +49,7 @@ class FilmorateApplicationTests {
 		filmMapping.setDescription("Описание1");
 		filmMapping.setReleaseDate(LocalDate.of(2019,1,1));
 		filmMapping.setDuration(123);
-		filmMapping1.setId(0);
+		filmMapping1.setId(2);
 		filmMapping1.setName("Фильм2");
 		filmMapping1.setDescription("Описание2");
 		filmMapping1.setReleaseDate(LocalDate.of(1919,1,1));

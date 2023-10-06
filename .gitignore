@@ -3,13 +3,13 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/.mvn
-!**/mvnw
-!**/mvnw.cmd
-!**/HELP.md
-!*.class
-!*.jar
-!*.DS_Store
+**/.mvn
+**/mvnw
+**/mvnw.cmd
+**/HELP.md
+*.class
+*.jar
+*.DS_Store
 
 ### STS ###
 .apt_generated

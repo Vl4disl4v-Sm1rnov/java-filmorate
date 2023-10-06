@@ -46,9 +46,6 @@ public class FilmController {
         validationReleaseDate(film);
         validationDuration(film);
         setFilmId(film);
-        if(films.containsKey(film.getId())){
-            film.setId(++filmId);
-        }
         films.put(film.getId(), film);
         return film;
 
