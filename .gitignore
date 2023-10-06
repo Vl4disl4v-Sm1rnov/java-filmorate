@@ -7,6 +7,9 @@ target/
 !**/mvnw
 !**/mvnw.cmd
 !**/HELP.md
+!*.class
+!*.jar
+!*.DS_Store
 
 ### STS ###
 .apt_generated
