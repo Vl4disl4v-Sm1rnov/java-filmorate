@@ -20,6 +20,10 @@ public class FilmController {
     private static final LocalDate MIN_RELEASE_DATE = LocalDate.of(1895, 12, 28);
     private HashMap<Integer, Film> films = new HashMap<>();
 
+    public HashMap<Integer, Film> getFilms() {
+        return films;
+    }
+
     int filmId;
 
     private void setFilmId(Film film){
@@ -37,8 +41,14 @@ public class FilmController {
     @PostMapping
     public Film create(@RequestBody Film film){
         log.info("Добавление фильма с id: {}", film.getId());
-        validation(film);
+        validationName(film);
+        validationDescription(film);
+        validationReleaseDate(film);
+        validationDuration(film);
         setFilmId(film);
+        if(films.containsKey(film.getId())){
+            film.setId(++filmId);
+        }
         films.put(film.getId(), film);
         return film;
 
@@ -47,7 +57,10 @@ public class FilmController {
     @PutMapping
     public Film update(@RequestBody Film film){
         log.info("Обновление фильма с id: {}", film.getId());
-        validation(film);
+        validationName(film);
+        validationDescription(film);
+        validationReleaseDate(film);
+        validationDuration(film);
         if (films.containsKey(film.getId())) {
             films.put(film.getId(), film);
             return film;
@@ -55,16 +68,22 @@ public class FilmController {
             throw new NotFoundException("Не существует фильма с id: " + film.getId());
         }
     }
-    private void validation(Film film){
-        if(film.getName() == null || film.getName().isBlank()){
+    public void validationName(Film film) {
+        if (film == null ||film.getName() == null || film.getName().isBlank() || film.getName().isEmpty() || film.getName().length() == 0) {
             throw new ValidationException("Название фильма не может быть пустым.");
         }
-        if(film.getDescription().length() > MAX_LENGTH_DESCRIPTION){
+    }
+    public void validationDescription(Film film) {
+        if (film.getDescription().length() > MAX_LENGTH_DESCRIPTION) {
             throw new ValidationException("Максимальная длина описания — 200 символов.");
         }
+    }
+    public void validationReleaseDate(Film film) {
         if(film.getReleaseDate().isBefore(MIN_RELEASE_DATE)){
             throw new ValidationException("Дата релиза — не раньше 28 декабря 1895 года.");
         }
+    }
+    public void validationDuration(Film film){
         if(film.getDuration() <= 0){
             throw new ValidationException("Продолжительность фильма должна быть положительной.");
         }
