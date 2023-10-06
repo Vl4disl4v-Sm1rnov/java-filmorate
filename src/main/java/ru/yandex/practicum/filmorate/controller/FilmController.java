@@ -63,29 +63,29 @@ public class FilmController {
             throw new NotFoundException("Не существует фильма с id: " + film.getId());
         }
     }
-    public void validationName(Film film)
-    {
+
+    public void validationName(Film film) {
 
         if (film == null || film.getName() == null || film.getName().isBlank() || film.getName().isEmpty()
                 || film.getName().length() == 0) {
             throw new ValidationException("Название фильма не может быть пустым.");
         }
     }
-    public void validationDescription(Film film)
-    {
+
+    public void validationDescription(Film film) {
 
         if (film.getDescription().length() > maxLengthDescription)
             throw new ValidationException("Максимальная длина описания — 200 символов.");
 
     }
-    public void validationReleaseDate(Film film)
-    {
+
+    public void validationReleaseDate(Film film) {
 
         if (film.getReleaseDate().isBefore(MIN_RELEASE_DATE))
             throw new ValidationException("Дата релиза — не раньше 28 декабря 1895 года.");
     }
-    public void validationDuration(Film film)
-    {
+
+    public void validationDuration(Film film) {
 
         if (film.getDuration() <= 0)
             throw new ValidationException("Продолжительность фильма должна быть положительной.");
