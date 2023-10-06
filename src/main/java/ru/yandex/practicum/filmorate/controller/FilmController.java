@@ -26,9 +26,9 @@ public class FilmController {
     int filmId;
 
     private void setFilmId(Film film) {
-        if(film.getId() <= 0) {
+        if(film.getId() <= 0)
             film.setId(++filmId);
-        }
+
     }
 
     @GetMapping
@@ -65,7 +65,8 @@ public class FilmController {
         }
     }
     public void validationName(Film film) {
-        if (film == null ||film.getName() == null || film.getName().isBlank() || film.getName().isEmpty() || film.getName().length() == 0) {
+        if (film == null || film.getName() == null || film.getName().isBlank() || film.getName().isEmpty()
+                || film.getName().length() == 0) {
             throw new ValidationException("Название фильма не может быть пустым.");
         }
     }
@@ -75,13 +76,12 @@ public class FilmController {
         }
     }
     public void validationReleaseDate(Film film) {
-        if(film.getReleaseDate().isBefore(MIN_RELEASE_DATE)) {
+        if (film.getReleaseDate().isBefore(MIN_RELEASE_DATE))
             throw new ValidationException("Дата релиза — не раньше 28 декабря 1895 года.");
-        }
     }
     public void validationDuration(Film film) {
-        if(film.getDuration() <= 0) {
+        if (film.getDuration() <= 0)
             throw new ValidationException("Продолжительность фильма должна быть положительной.");
-        }
+
     }
 }
