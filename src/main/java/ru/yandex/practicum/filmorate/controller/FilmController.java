@@ -19,6 +19,7 @@ public class FilmController {
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
     }
+
     @GetMapping
     public List<Film> findAll() {
         log.info("Количество фильмов: {}", filmService.getFilms().size());
@@ -44,7 +45,7 @@ public class FilmController {
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public void deleteLikeForFilm(@PathVariable int id, @PathVariable int userId){
+    public void deleteLikeForFilm(@PathVariable int id, @PathVariable int userId) {
         log.info("Пользователь с id: {}, удалил лайк с фильма: {}", userId, id);
         filmService.deleteLikeForFilm(id, userId);
     }
