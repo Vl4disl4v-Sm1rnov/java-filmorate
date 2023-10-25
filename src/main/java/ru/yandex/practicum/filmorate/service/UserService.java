@@ -45,7 +45,7 @@ public class UserService {
 
     public User getUserById(int id) {
         User user = us.getUserById(id);
-        if(user == null) {
+        if (user == null) {
             throw new NotFoundException("Несуществует пользователя с id: " + id);
         }
         return user;
@@ -70,7 +70,7 @@ public class UserService {
         User otherUser = us.getUserById(otherId);
         List<User> mutualFriends = new ArrayList<>();
         for (Integer friend : user.getFriends()) {
-            if(otherUser.getFriends().contains(friend)) {
+            if (otherUser.getFriends().contains(friend)) {
                 mutualFriends.add(us.getUserById((friend)));
             }
         }
@@ -87,7 +87,7 @@ public class UserService {
         }
         for (Integer friendId : friends) {
             User friend = us.getUserById(friendId);
-            if(friend != null){
+            if (friend != null){
                 friendsList.add(friend);
             }
         }

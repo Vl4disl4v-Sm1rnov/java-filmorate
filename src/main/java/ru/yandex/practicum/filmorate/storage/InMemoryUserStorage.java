@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class InMemoryUserStorage implements UserStorage{
+public class InMemoryUserStorage implements UserStorage {
 
     private int userId;
 

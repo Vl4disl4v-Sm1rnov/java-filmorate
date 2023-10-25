@@ -46,7 +46,6 @@ public class FilmService {
         validationReleaseDate(film);
         validationDuration(film);
         return filmStorage.addFilm(film);
-
     }
 
     public Film update(Film film) {
@@ -69,7 +68,7 @@ public class FilmService {
         film.deleteLike(userId);
     }
 
-    public List<Film> getPopularFilms(int count){
+    public List<Film> getPopularFilms(int count) {
         return filmStorage.getPopularFilms(count);
     }
 

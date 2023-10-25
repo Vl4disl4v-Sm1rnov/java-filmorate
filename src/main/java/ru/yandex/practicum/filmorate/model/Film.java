@@ -24,7 +24,7 @@ public class Film {
         popularFilm.remove(id);
     }
 
-    public int getPopularFilmsSetSize(){
+    public int getPopularFilmsSetSize() {
         return popularFilm.size();
     }
 
