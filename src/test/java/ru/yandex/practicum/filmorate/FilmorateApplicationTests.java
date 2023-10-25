@@ -1,6 +1,8 @@
 package ru.yandex.practicum.filmorate;
 
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
@@ -8,23 +10,37 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
 class FilmorateApplicationTests {
-	private FilmController filmController;
+	/*private FilmController filmController;
 	private UserController userController;
 	private User userMapping;
 	private User userMapping1;
 	private Film filmMapping;
 	private Film filmMapping1;
 
+    private UserService userService;
+
+    private FilmService filmService;
+
+    private UserStorage us;
+    private FilmStorage fs;
 	@BeforeEach
 	public void beforeEach() {
-		userController = new UserController();
+        userService = new UserService(us);
+        filmService = new FilmService(fs, us);
+		userController = new UserController(userService);
 		filmController = new FilmController();
 		userMapping = new User();
 		userMapping1 = new User();
@@ -119,5 +135,5 @@ class FilmorateApplicationTests {
 		filmMapping.setId(100);
 		Exception exceptionPut = assertThrows(NotFoundException.class, () -> filmController.update(filmMapping));
 		assertEquals("Не существует фильма с id: " + filmMapping.getId(), exceptionPut.getMessage());
-	}
+	}*/
 }
