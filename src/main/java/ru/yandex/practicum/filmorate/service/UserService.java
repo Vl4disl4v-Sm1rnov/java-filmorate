@@ -82,12 +82,12 @@ public class UserService {
         User user = us.getUserById(id);
         List<User> friendsList = new ArrayList<>();
         Set<Integer> friends = user.getFriends();
-        if(friends.isEmpty()) {
+        if (friends.isEmpty()) {
             throw new NotFoundException("Список друзей пуст");
         }
         for (Integer friendId : friends) {
             User friend = us.getUserById(friendId);
-            if (friend != null){
+            if (friend != null) {
                 friendsList.add(friend);
             }
         }
