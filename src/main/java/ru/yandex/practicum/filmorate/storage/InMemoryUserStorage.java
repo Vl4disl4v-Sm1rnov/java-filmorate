@@ -16,10 +16,11 @@ public class InMemoryUserStorage implements UserStorage {
     private HashMap<Integer, User> users = new HashMap<>();
 
     private void setUserId(User user) {
-        if (user.getId() <= 0)
+        if (user.getId() <= 0) {
             user.setId(++userId);
+        }
     }
-    
+
     @Override
     public User addUser(User user) {
         setUserId(user);
