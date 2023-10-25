@@ -18,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -59,13 +59,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}/friends/{friendId}")
-    public void addToFriend (@PathVariable int id, @PathVariable int friendId) {
+    public void addToFriend(@PathVariable int id, @PathVariable int friendId) {
         log.info("Пользователь с id: {}, добавляет в друзья пользователя с id: {}", id, friendId);
         userService.addToFriend(id, friendId);
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend (@PathVariable int id, @PathVariable int friendId) {
+    public void deleteFriend(@PathVariable int id, @PathVariable int friendId) {
         log.info("Пользователь с id: {}, удаляет из друзей пользователя с id: {}", id, friendId);
         userService.deleteFriend(id, friendId);
     }
