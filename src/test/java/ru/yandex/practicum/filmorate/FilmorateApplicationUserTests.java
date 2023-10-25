@@ -26,7 +26,7 @@ public class FilmorateApplicationUserTests {
     private User otherUser;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         userStorage = new InMemoryUserStorage();
         userService = new UserService(userStorage);
         userController = new UserController(userService);
