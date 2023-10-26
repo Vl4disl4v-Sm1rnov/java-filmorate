@@ -29,17 +29,17 @@ public class UserService {
 
     public User create(User user) {
         log.info("Добавление пользователя с id: {}", user.getId());
-        validationLogin(user);
-        validationName(user);
-        validationBirthday(user);
+        validateLogin(user);
+        validateName(user);
+        validateBirthday(user);
         return us.addUser(user);
     }
 
     public User update(User user) {
         log.info("Обновление пользователя с id: {}", user.getId());
-        validationLogin(user);
-        validationName(user);
-        validationBirthday(user);
+        validateLogin(user);
+        validateName(user);
+        validateBirthday(user);
         return us.updateUser(user);
     }
 
@@ -95,19 +95,19 @@ public class UserService {
         return friendsList;
     }
 
-    public void validationLogin(User user) {
+    public void validateLogin(User user) {
         if (user.getLogin().isBlank() || user.getLogin() == null) {
             throw new ValidationException("Логин не может быть пустым и содержать пробелы.");
         }
     }
 
-    public void validationName(User user) {
+    public void validateName(User user) {
         if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
             user.setName(user.getLogin());
         }
     }
 
-    public void validationBirthday(User user) {
+    public void validateBirthday(User user) {
         if (user.getBirthday().isAfter(LocalDate.now()) || user.getBirthday() == null) {
             throw new ValidationException("Дата рождения не может быть в будущем.");
         }

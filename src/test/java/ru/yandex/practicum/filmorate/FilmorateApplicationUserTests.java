@@ -51,11 +51,11 @@ public class FilmorateApplicationUserTests {
         User user = new User();
         User user1 = new User();
         user1.setLogin("123");
-        userService.validationName(user1);
+        userService.validateName(user1);
         user.setLogin("");
         user.setBirthday(LocalDate.of(2024,1,1));
-        Exception exceptionLogin = assertThrows(ValidationException.class, () -> userService.validationLogin(user));
-        Exception exceptionBirthday = assertThrows(ValidationException.class, () -> userService.validationBirthday(user));
+        Exception exceptionLogin = assertThrows(ValidationException.class, () -> userService.validateLogin(user));
+        Exception exceptionBirthday = assertThrows(ValidationException.class, () -> userService.validateBirthday(user));
         assertEquals("Логин не может быть пустым и содержать пробелы.", exceptionLogin.getMessage());
         assertEquals("Дата рождения не может быть в будущем.", exceptionBirthday.getMessage());
         assertEquals(user1.getLogin(), user1.getName());

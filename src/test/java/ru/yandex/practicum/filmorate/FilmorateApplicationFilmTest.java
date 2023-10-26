@@ -69,10 +69,10 @@ public class FilmorateApplicationFilmTest {
                 "scriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription");
         film.setReleaseDate(LocalDate.of(1800, 1,1));
         film.setDuration(-1);
-        Exception exceptionName = assertThrows(ValidationException.class, () -> filmService.validationName(film));
-        Exception exceptionDescription = assertThrows(ValidationException.class, () -> filmService.validationDescription(film));
-        Exception exceptionReleaseDate = assertThrows(ValidationException.class, () -> filmService.validationReleaseDate(film));
-        Exception exceptionDuration = assertThrows(ValidationException.class, () -> filmService.validationDuration(film));
+        Exception exceptionName = assertThrows(ValidationException.class, () -> filmService.validateName(film));
+        Exception exceptionDescription = assertThrows(ValidationException.class, () -> filmService.validateDescription(film));
+        Exception exceptionReleaseDate = assertThrows(ValidationException.class, () -> filmService.validateReleaseDate(film));
+        Exception exceptionDuration = assertThrows(ValidationException.class, () -> filmService.validateDuration(film));
         assertEquals("Название фильма не может быть пустым.", exceptionName.getMessage());
         assertEquals("Максимальная длина описания — 200 символов.", exceptionDescription.getMessage());
         assertEquals("Дата релиза — не раньше 28 декабря 1895 года.", exceptionReleaseDate.getMessage());

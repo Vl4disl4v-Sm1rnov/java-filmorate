@@ -41,19 +41,19 @@ public class FilmService {
 
     public Film create(Film film) {
         log.info("Добавление фильма с id: {}", film.getId());
-        validationName(film);
-        validationDescription(film);
-        validationReleaseDate(film);
-        validationDuration(film);
+        validateName(film);
+        validateDescription(film);
+        validateReleaseDate(film);
+        validateDuration(film);
         return filmStorage.addFilm(film);
     }
 
     public Film update(Film film) {
         log.info("Обновление фильма с id: {}", film.getId());
-        validationName(film);
-        validationDescription(film);
-        validationReleaseDate(film);
-        validationDuration(film);
+        validateName(film);
+        validateDescription(film);
+        validateReleaseDate(film);
+        validateDuration(film);
         return filmStorage.updateFilm(film);
     }
 
@@ -72,7 +72,7 @@ public class FilmService {
         return filmStorage.getPopularFilms(count);
     }
 
-    public void validationName(Film film) {
+    public void validateName(Film film) {
 
         if (film == null || film.getName() == null || film.getName().isBlank() || film.getName().isEmpty()
                 || film.getName().length() == 0) {
@@ -80,20 +80,20 @@ public class FilmService {
         }
     }
 
-    public void validationDescription(Film film) {
+    public void validateDescription(Film film) {
 
         if (film.getDescription().length() > maxLengthDescription)
             throw new ValidationException("Максимальная длина описания — 200 символов.");
 
     }
 
-    public void validationReleaseDate(Film film) {
+    public void validateReleaseDate(Film film) {
 
         if (film.getReleaseDate().isBefore(MIN_RELEASE_DATE))
             throw new ValidationException("Дата релиза — не раньше 28 декабря 1895 года.");
     }
 
-    public void validationDuration(Film film) {
+    public void validateDuration(Film film) {
 
         if (film.getDuration() <= 0)
             throw new ValidationException("Продолжительность фильма должна быть положительной.");
