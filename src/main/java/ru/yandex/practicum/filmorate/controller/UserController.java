@@ -1,81 +1,70 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
+
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
+@RequiredArgsConstructor
 public class UserController {
-    private final Logger log = LoggerFactory.getLogger(UserController.class);
-    private HashMap<Integer, User> users = new HashMap<>();
 
-    public HashMap<Integer, User> getUsers() {
-        return users;
-    }
-
-    private int userId;
-
-    private void setUserId(User user) {
-        if (user.getId() <= 0)
-            user.setId(++userId);
-    }
+    private final UserService userService;
 
     @GetMapping
     public List<User> findAll() {
-        log.info("Количество пользователей: {}", users.size());
-        return new ArrayList<User>(users.values());
+        log.info("Количество пользователей: {}", userService.getUsers().size());
+        return userService.getUsers();
     }
 
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         log.info("Добавление пользователя с id: {}", user.getId());
-        validationLogin(user);
-        validationName(user);
-        validationBirthday(user);
-        setUserId(user);
-        users.put(user.getId(),user);
-        return user;
+        return userService.create(user);
     }
 
     @PutMapping
     public User update(@Valid @RequestBody User user) {
         log.info("Обновление пользователя с id: {}", user.getId());
-        validationLogin(user);
-        validationName(user);
-        validationBirthday(user);
-        if (users.containsKey(user.getId())) {
-            users.put(user.getId(), user);
-            return user;
-        } else
-            throw new NotFoundException("Нет пользователя с id: " + user.getId());
-
+        return userService.update(user);
     }
 
-    public void validationLogin(User user) {
-        if (user.getLogin().isBlank() || user.getLogin() == null) {
-            throw new ValidationException("Логин не может быть пустым и содержать пробелы.");
-        }
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        log.info("Пользователь с id: {}", id);
+        return userService.getUserById(id);
     }
 
-    public void validationName(User user) {
-        if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
-            user.setName(user.getLogin());
-        }
+    @GetMapping("/{id}/friends")
+    public List<User> getFriendsList(@PathVariable int id) {
+        log.info("Список друзей пользователя с id: ", id);
+        return userService.getFriendList(id);
     }
 
-    public void validationBirthday(User user) {
-        if (user.getBirthday().isAfter(LocalDate.now()) || user.getBirthday() == null) {
-            throw new ValidationException("Дата рождения не может быть в будущем.");
-        }
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public List<User> getMutualFriendList(@PathVariable int id, @PathVariable int otherId) {
+        log.info("Список общих друзей пользователей: {}, {}", id, otherId);
+        return userService.getMutualList(id, otherId);
+    }
+
+    @PutMapping("/{id}/friends/{friendId}")
+    public void addToFriend(@PathVariable int id, @PathVariable int friendId) {
+        log.info("Пользователь с id: {}, добавляет в друзья пользователя с id: {}", id, friendId);
+        userService.addToFriend(id, friendId);
+    }
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public void deleteFriend(@PathVariable int id, @PathVariable int friendId) {
+        log.info("Пользователь с id: {}, удаляет из друзей пользователя с id: {}", id, friendId);
+        userService.deleteFriend(id, friendId);
     }
 }
